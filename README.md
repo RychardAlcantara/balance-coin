@@ -1,8 +1,3 @@
-Perfeito, Rychard 👌
-Aqui está um modelo de **README.md** completo e bem estruturado para o seu sistema **Balance Coin**, destacando os pontos técnicos e as instruções de execução:
-
----
-
 # 💰 Balance Coin
 
 **Balance Coin** é um sistema de gerenciamento financeiro pessoal desenvolvido com **Next.js**, que permite o controle de contas, cadastro de usuários e gerenciamento de transações de forma prática e moderna.
