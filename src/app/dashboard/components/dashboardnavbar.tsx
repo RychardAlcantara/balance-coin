@@ -18,13 +18,10 @@ export default function DashboardNavbar({
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const router = useRouter();
 
- 
-
   const deslogar = () => {;
     auth
       .signOut()
       .then(() => {
-        console.log("Usuário desconectado.");
         router.push("/");
       })
       .catch((error) => {

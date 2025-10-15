@@ -48,7 +48,7 @@ export default function ModalLogin() {
                 <button type="button" className="btn-close" onClick={toggleModal} aria-label="Close"></button>
               </div>
               <div className="modal-body mx-auto">
-                <Image src="/images/ilustra_Cadastro.png" alt="Logo Balance Coin" width={355} height={262} priority className="mb-3 img-fluid" />
+                <Image src="/images/ilustra_cadastro.png" alt="Logo Balance Coin" width={355} height={262} priority className="mb-3 img-fluid" />
                 <form onSubmit={handleLogin}>
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">E-mail</label>
