@@ -1,6 +1,7 @@
 "use client";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../styles/dashboard.css";
 import { useEffect, useState } from "react";
 import SaldoComponent from "./components/saldoComponent";

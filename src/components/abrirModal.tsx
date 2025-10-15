@@ -1,9 +1,12 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Usuario } from "@/app/classes/Usuario";
+import ModalSucesso from "./ModalSucesso";
 
 export default function AbrirContaModal() {
   const [showModal, setShowModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [mensagemSucesso, setMensagemSucesso] = useState("");
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -42,15 +45,16 @@ export default function AbrirContaModal() {
 
     try {
       await novoUsuario.cadastrar();
-      toggleModal();
+      setShowModal(false);
+      setMensagemSucesso("Sua conta foi cadastrada com sucesso!");
+      setShowSuccessModal(true);
     } catch (error: unknown) {
-  if (error instanceof Error) {
-    window.alert(error.message);
-  } else {
-    window.alert("Ocorreu um erro desconhecido.");
-  }
-}
-
+      if (error instanceof Error) {
+        window.alert(error.message);
+      } else {
+        window.alert("Ocorreu um erro desconhecido.");
+      }
+    }
   };
 
   return (
@@ -82,7 +86,7 @@ export default function AbrirContaModal() {
                 ></button>
               </div>
               <div className="modal-body mx-auto">
-                <Image src="/images/abriConta.png" alt="Logo Balance Coin" width={355} height={262} priority className="mb-3 img-fluid"/>
+                <Image src="/images/abriConta.png" alt="Logo Balance Coin" width={355} height={262} priority className="mb-3 img-fluid" />
                 <p>Preencha os campos abaixo para criar sua conta corrente!</p>
                 <form>
                   <div className="mb-3">
@@ -152,6 +156,14 @@ export default function AbrirContaModal() {
             </div>
           </div>
         </div>
+      )}
+
+
+      {showSuccessModal && (
+        <ModalSucesso
+          mensagem={mensagemSucesso}
+          onClose={() => setShowSuccessModal(false)}
+        />
       )}
     </>
   );

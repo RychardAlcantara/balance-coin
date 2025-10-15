@@ -24,7 +24,6 @@ export class Usuario {
         emailUsuario: this.email,
       });
 
-      window.alert("Sucesso! Sua conta foi cadastrada.");
     } catch (error) {
       console.error(error);
       throw new Error("Erro ao cadastrar o usuário. Tente novamente mais tarde.");
@@ -36,7 +35,6 @@ export class Usuario {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, this.email, this.senha);
       const user = userCredential.user;
-      console.log('user: ', user);
       return user;
       
     } catch (error) {
@@ -94,7 +92,7 @@ export class Usuario {
         this.senha = newSenha;
       }
 
-      window.alert("Sucesso! Dados do usuário atualizados.");
+     
     } catch (error) {
       console.error(error);
       let errorMessage = "Erro ao atualizar os dados do usuário. Tente novamente mais tarde.";

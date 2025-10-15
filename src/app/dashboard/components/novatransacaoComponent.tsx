@@ -5,12 +5,15 @@ import { ref, get } from "firebase/database";
 import { Transacao } from "@/app/classes/Transacao";
 import FormularioTransacao from "./transacao/formularioTransacao";
 import { format } from "date-fns";
+import ModalSucesso from "@/components/ModalSucesso";
 
 const NovaTransacaoComponent = () => {
   const [idconta, setIdConta] = useState<string | null>(null);
   const [saldoAtual, setSaldoAtual] = useState<number>(0);
   const [idTransacao, setIdTransacao] = useState<string>("");
   const [dataTransacao, setDataTransacao] = useState<string>("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [mensagemSucesso, setMensagemSucesso] = useState("");
 
   useEffect(() => {
     const auth = getAuth();
@@ -78,7 +81,7 @@ const NovaTransacaoComponent = () => {
               idconta,
               saldoAtual,
               novoSaldo,
-              descricao, 
+              descricao,
               categoria,
               idTransacao,
               anexoUrl,
@@ -87,12 +90,12 @@ const NovaTransacaoComponent = () => {
 
             try {
               await transacao.registrar();
-              alert("Transação salva com sucesso!");
-              window.location.reload();
+              setMensagemSucesso("Transação salva com sucesso!");
+              setShowSuccessModal(true);
               setIdTransacao(String(Date.now()));
               setDataTransacao(format(new Date(), "dd-MM-yyyy"));
               obterSaldo(idconta);
-              
+
             } catch (error) {
               const msg = error instanceof Error ? error.message : String(error);
               alert(`Erro ao salvar transação: ${msg}`);
@@ -101,6 +104,15 @@ const NovaTransacaoComponent = () => {
         />
       ) : (
         <div>Carregando dados do usuário e transação...</div>
+      )}
+      {showSuccessModal && (
+        <ModalSucesso
+          mensagem={mensagemSucesso}
+          onClose={() => {
+            setShowSuccessModal(false);
+            window.location.reload();
+          }}
+        />
       )}
     </div>
   );

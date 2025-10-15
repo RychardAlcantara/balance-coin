@@ -1,5 +1,5 @@
 'use client';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/style.css';
 import Image from 'next/image';
 import Navbar from "@/components/navbar";

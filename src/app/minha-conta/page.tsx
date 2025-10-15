@@ -11,8 +11,11 @@ import { ref, onValue } from "firebase/database";
 import { Usuario } from "@/app/classes/Usuario";
 import "@/styles/minhaconta.css";
 import Link from "next/link";
+import ModalSucesso from "@/components/ModalSucesso";
 
 export default function MinhaConta() {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [mensagemSucesso, setMensagemSucesso] = useState("");
   const [userData, setUserData] = useState<{
     nome: string;
     email: string;
@@ -87,6 +90,8 @@ export default function MinhaConta() {
     try {
       const usuario = new Usuario(userData.nome, userData.email, userData.senha || "");
       await usuario.atualizarUsuario(auth.currentUser.uid, userData.nome, userData.email, userData.senha);
+      setMensagemSucesso("Sucesso! Dados do usuário atualizados.");
+      setShowSuccessModal(true);
     } catch (error) {
       console.error(error);
       window.alert(error instanceof Error ? error.message : "Erro ao atualizar dados.");
@@ -127,7 +132,7 @@ export default function MinhaConta() {
                 <label htmlFor="senha" className="form-label">Senha</label>
                 <input type="password" className="form-control" id="senha" name="senha" value={userData.senha} onChange={alterarTexto} placeholder="Deixe em branco para manter a senha atual" />
               </div>
-              <div className="flex gap-3">
+              <div className="d-flex gap-3">
                 <button type="submit" className="btn btn-success ">Salvar alterações</button>
                 <Link href="/dashboard" className="btn btn-outline-primary">
                   ← Voltar ao Dashboard
@@ -138,6 +143,15 @@ export default function MinhaConta() {
           </div>
         </div>
       </div>
+      {showSuccessModal && (
+        <ModalSucesso
+          mensagem={mensagemSucesso}
+          onClose={() => {
+            setShowSuccessModal(false);
+            window.location.reload();
+          }}
+        />
+      )}
     </>
   );
 }
